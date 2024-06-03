@@ -1,0 +1,277 @@
+:root {
+  --3rdc: #9abd3acc;
+  --4thc:#c9c746cc;
+  --5rdc: #a7a542cc;
+  --6thc:#c9c746cc;
+  --btext:black;
+  --main-color: #d3e3fd;
+  --secondary-color: #444;
+  --border-color: 1px solid #cacaca;
+  --background-color: #435266;
+  --input-background: #444;
+  --button-background: transparent;
+  --button-hover-background: #0e3069;
+  --pointer: #405b83cc;
+  --headColor: #0d2136;
+  --shadow: #0005 0px 0px 5px 2px;
+}
+
+html,body {
+  direction: rtl;
+  user-select: none;
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  -webkit-user-select: none;
+  position: relative;
+  background-color: #031525;
+  color: var(--main-color);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+ width: 100vw;
+ left: 0;
+ top: 0;
+text-align: -webkit-center;
+overflow: hidden;
+align-items: center;
+justify-items: center;
+justify-content: center;
+}
+* :not(body,html) {
+  transform: translateZ(0);
+  text-rendering: optimizeLegibility;
+  font-family:"Google Sans", sans-serif;
+  -webkit-font-smoothing: antialiased; 
+   -webkit-font-feature-settings: on;
+   font-feature-settings:on;
+   -webkit-font-smoothing: antialiased;
+   transition: shadow 1s ease-in-out;
+}
+.option {
+  aspect-ratio: 3/1;
+  max-width: min-content+20px;
+  top: 300px; 
+  left: 30px;
+  position: fixed;
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  background-color: #3b4b63;
+  padding: 15px;
+  overflow: hidden;
+  font-size: calc(1vw + 0.5vh);
+  word-wrap: break-word;
+  display: flex;
+  color: var(--main-color);
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  justify-items: center;
+  z-index: 9999999999;
+}
+
+.seltext {
+  background-color: #636e7b;
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+#container {
+  box-shadow: rgba(0, 0, 0, 0.616) 0px 0px 2px 1px;
+  background:linear-gradient(45deg, rgb(8, 26, 48),rgb(39, 57, 92));
+  direction: var(--main-direction);
+  width: 60%;
+  height: 80vh;
+  min-height: 300px;
+  min-width: 300px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  position: fixed;
+  overflow: hidden;
+  gap: 10%;
+}
+
+.head {
+  position: relative;
+  width: 100%;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.226);
+  display: flex;
+  align-items: center;
+  direction: var(--main-direction);
+  gap: 10px;
+}
+
+
+
+
+
+.title {
+  color: var(--main-color);
+  font-size: 20px;
+  font-family: "Noto Sans", sans-serif;
+  font-optical-sizing:auto;
+  font-weight:600 ;
+  margin: 0px;
+}
+
+
+
+
+
+
+.newT{
+  background-color: var(--3rdc);
+  border: 1px solid var(--4thc);
+  padding: 50%;
+  border: 'none';
+      box-shadow: var(--shadow);
+      border-radius: 8px;
+      padding: 5px;
+      pointer-events: all;
+      cursor: pointer;
+      z-index:  1;
+      font-weight: 600;
+      position: 'relative';
+      color: var(--main-color);
+}
+
+.newT:hover{
+  background-color: var(--4thc);
+  
+}
+
+.defaultTooltip {
+  background-color: #636e7b;
+  color: #fff;
+  border: none;
+  width: fit-content;
+  box-shadow: none;
+  stroke: none;
+}
+
+.custom-dialog {
+  position: fixed;
+  bottom: -500px;
+  background: #636e7b;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  display: none;
+  top: auto;
+  left: auto;
+}
+
+.custom-dialog.show {
+  display: block;
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    bottom: -500px;
+  }
+  100% {
+    bottom: 20px;
+  }
+}
+
+svg {
+  padding: 10px;
+  border-radius: 25%;
+  cursor: pointer;
+}
+
+:not(.resize,.close).svg:hover {
+  background-color: var(--pointer);
+}
+
+.close:hover {
+  background-color: indianred;
+}
+
+#credit {
+  color: #aaa;
+  margin-top: 20px;
+  position: absolute;
+  bottom: 5%;
+  justify-content: center;
+  width: -webkit-fill-available;
+}
+
+#taskBar{
+  width: 70%;
+  padding-right: 20px;
+  position: fixed;
+  bottom: 0;
+  gap: 10px;
+  border-radius: 12px 12px 0px 0px;
+  border-bottom: none;
+  height: 6%;
+  box-shadow: #0000005c 0 0 6px;
+  border: 1px solid var(--border-color);
+}
+
+/* This is a CSS comment */
+
+.user{
+  height: 40%;
+  width: 300px;
+  border: var(--border-color);
+  position: fixed;
+  bottom: 0;
+  background-color: var(--headColor);
+  border-radius: 8px;
+}
+
+.mainBar{
+  height: 100%;
+  width: 80px;
+  background-color: #071a2b;
+  position: fixed;
+  left: 0;
+  display:block;
+  border: 1px solid #040f18;
+  z-index: 1;
+}
+.mbul{
+  height: 100%;
+  width: 100%;
+  padding-top: 5px;
+  display: flow-root;
+  position: absolute;
+}
+.mbul > * {
+  margin-bottom: 10px; 
+}
+
+.taskBar{
+  height: 70%;
+  width: 60px;
+  background-color:  #071a2b;
+  position: fixed;
+  right: 0;
+  display:flow-root;
+  border-radius: 12px 0 0 12px;
+box-shadow:  #040e16 0px 0px 5px 1px;
+z-index: 1;
+}
+
+.line{
+  height: 1px;
+  width: 100%;
+  background-color: #3b4b63;
+}
+
+p.title{
+top: 10px;
+left: 100px;
+position: absolute;
+font-weight: 700;
+}

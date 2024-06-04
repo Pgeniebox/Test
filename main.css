@@ -333,8 +333,13 @@ img{
 img.act{
 pointer-events: all;
 cursor: pointer;
+padding: 5px;
+border-radius: 50px;
 }
+img.act:hover{
+  background-color: #5569aa54;
 
+}
 
 .mainPage{
   gap: 2%;

@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <title>كتيب</title>
+    <title>MDC</title>
      <link rel="icon" href="/img/logo.png" type="image/png">
 <style>
 
@@ -22,12 +22,16 @@
 </style>
 </head>
 <body>   
-    <p class="title">Liste des client </p>
-    <div class="mainBar">
+   <div class="title"> <p class="title">Accueil</p><img class="act" tit="Paramètres" src="img/mainBar/setting.png"  style="width: 20px;height: 20px;"></div>
+   <div class="mainPage"><div class="mpHead"><p class="title act">Sale d'attente</p><p class="title act a">Assitante: ...</p></div><ul class="sa"></ul></div> 
+   <div class="mainBar">
         <img src="/img/logo.png" alt="" style="position: relative;width: 40%;margin-top: 10px;margin-bottom: 0;">
        <div class="mbul">
-        <div class="line"></div></div>
-        
+        <div class="line"></div>
+        <div class="mbli sel" tit="Accueil"><img src="img/mainBar/home.png" alt="" style="width: 25px;"></div>
+        <div class="line"></div>
+
+    </div>
     </div> 
     <div class="taskBar"></div>
     <div name="عبد الله بن راشد" id="container" class="wd" style=" flex-grow: 1;display: none;">
@@ -68,6 +72,18 @@
 /// listPathsInRepository(document.querySelector('ul'));
 
 $(this).clearQueue();
+
+let cl = ['ahmed','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila'];
+const uu = document.querySelector('ul.sa');
+/*
+cl.forEach(e=>{
+    const li = document.createElement('li');
+  uu.appendChild(li);
+  li.style.width = '100%'
+  
+  li.textContent = e
+})
+/*
 
 
 </script>

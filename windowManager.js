@@ -27,14 +27,14 @@ $(document)
           $toolTip.isHidden = true;
           $toolTip.css('opacity', '0');
           $(document).off('mousemove', showToolTip);
-          $('[title]').on('mouseover', mousemoveTooltip);
+          $('[tit]').on('mouseover', mousemoveTooltip);
       }
   }))
   .on('mouseup', ':not(body,html,#taskBar)', withIdleCallback(handleMouseUp))
   .on('mouseout', ':not(body,html,#taskBar)', withIdleCallback(handleMouseOut))
   .on('mousedown', '[slot="move"],[slot="resize"]', withIdleCallback(handleMouseDown));
 
-$('[title]').on('mouseover', withIdleCallback(mousemoveTooltip));
+$('[tit]').on('mouseover', withIdleCallback(mousemoveTooltip));
 $('.head.wd').on('dblclick', withIdleCallback(requestFullscreen));
 
 
@@ -75,14 +75,14 @@ function mousemoveTooltip(){
 
 function showToolTip(e) {     
       
-  if(!e.target['attributes']['title']){return;}
-  $toolTip.text(e.target['attributes']['title'].textContent).css({
+  if(!e.target['attributes']['tit']){return;}
+  $toolTip.text(e.target['attributes']['tit'].textContent).css({
     opacity: '0.9',
     left: Math.min(e.clientX + 20, window.innerWidth - $toolTip.outerWidth() - 10),
     top: Math.min(e.clientY + 20, window.innerHeight - $toolTip.outerHeight() - 10)
   }).show();
   $toolTip.isHidden = false;
-  $('[title]').off('mouseover',mousemoveTooltip);
+  $('[tit]').off('mouseover',mousemoveTooltip);
 }
 
 function handleMouseDown(e) {
@@ -119,7 +119,7 @@ function handleMouseOut() {
     $toolTip.isHidden = true;
     $toolTip.css('opacity', '0');
     $(document).off('mousemove', showToolTip)
-    $('[title]').on('mouseover',mousemoveTooltip);
+    $('[tit]').on('mouseover',mousemoveTooltip);
   }
 }
 

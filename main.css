@@ -6,7 +6,7 @@
   --btext:black;
   --main-color: #d3e3fd;
   --secondary-color: #444;
-  --border-color: 1px solid #cacaca;
+  --border-color: 3px solid #34416b;
   --background-color: #435266;
   --input-background: #444;
   --button-background: transparent;
@@ -232,7 +232,7 @@ svg {
 
 .mainBar{
   height: 100%;
-  width: 80px;
+  width: 70px;
   background-color: #071a2b;
   position: fixed;
   left: 0;
@@ -257,7 +257,7 @@ svg {
   background-color:  #071a2b;
   position: fixed;
   right: 0;
-  display:flow-root;
+  display:none;
   border-radius: 12px 0 0 12px;
 box-shadow:  #040e16 0px 0px 5px 1px;
 z-index: 1;
@@ -268,10 +268,107 @@ z-index: 1;
   width: 100%;
   background-color: #3b4b63;
 }
-
+div.title{display: flex;
+  direction:ltr;
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  gap: 40px;
+  width: fit-content;
+  align-items: center;
+}
 p.title{
-top: 10px;
-left: 100px;
-position: absolute;
+top: 0px;
+left: 0px;
+position: relative;
 font-weight: 700;
+}
+p.title.act{
+  cursor: pointer;
+  font-weight: 400;
+}
+p.title.act:hover{
+  filter: contrast(1.2);
+}
+p.a{
+  border: 1px solid rgb(164, 164, 228);
+  padding: 0px;
+  border-radius: 50px;
+  font-size:small;
+  background-color: #071a2b;
+  aspect-ratio: 3/1;
+  max-width: min-content+20px;
+  align-items: center;
+  justify-content: center;
+  display:flex;
+  justify-self:self-end;
+  padding-left: 10px;
+  padding-right: 10px;
+
+}
+.mbli{
+  width: auto;
+  justify-content: center;
+  height: fit-content;
+  align-content: center;
+  display:flex;
+  border-radius: 20px;
+  padding: 4px;
+}
+.sel{
+  background-color: #154ba7;
+}
+:not(.sel).mbli:hover{
+background-color: #3b4b633e;
+cursor: pointer;
+}
+
+img{
+  pointer-events: none;
+}
+
+img.act{position: relative;
+  left: -20px;
+pointer-events: all;
+cursor: pointer;
+opacity: 0.7;
+padding: 3px;
+border-radius: 50px;
+}
+
+img.act:hover{
+opacity: 1;
+background-color: #3b4b6353;
+}
+
+.mainPage{
+  width: 70vw;
+ height: 70vh;
+ left: 120px;
+ position: fixed;
+ padding: 5px;
+}
+.mpHead{
+  position: relative;
+align-items: center;
+  left: 20px;
+  width: 100%;
+  height: max-content;
+  display: flex;
+  direction: ltr;
+  gap: 20px;
+  padding: 0px;
+}
+*{padding: 0;}
+ul.sa{
+  height: 100%;
+border-radius: 12px;
+border: var(--border-color);
+overflow: auto;
+scrollbar-width: none;
+}
+li{
+  display: flex;
+  justify-content: end;
+  justify-items: end;
 }

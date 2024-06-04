@@ -51,18 +51,11 @@
     
 <div class="option tooltip"></div>
 </body>
+    <script src="windowManager.js"></script>
 <script>
 
 
-function load_js()
-   {
-      var head= document.getElementsByTagName('head')[0];
-      var script= document.createElement('script');
-      script.src= 'windowManager.js';
-      script.id='wind';
-      head.appendChild(script);
-   }
-   load_js();
+
    var toolt = document.querySelector('.option');
    toolt.hidden=true;
  

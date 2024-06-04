@@ -32,13 +32,10 @@ $(document)
   }))
   .on('mouseup', ':not(body,html,#taskBar)', withIdleCallback(handleMouseUp))
   .on('mouseout', ':not(body,html,#taskBar)', withIdleCallback(handleMouseOut))
-  .on('mousedown', '[slot="move"],[slot="resize"]', withIdleCallback(handleMouseDown));
 
 $('[tit]').on('mouseover', withIdleCallback(mousemoveTooltip));
-$('.head.wd').on('dblclick', withIdleCallback(requestFullscreen));
 
 
-$('svg').on('click', handleSvgClick);
 
 function handleMouseMove(e) {
   if (null!==activeWindow) {

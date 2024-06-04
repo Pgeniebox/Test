@@ -7,6 +7,8 @@
   --main-color: #d3e3fd;
   --secondary-color: #444;
   --border-color: 2px solid #7580a3;
+  --border-color-sel: 1px solid #bec9ec;
+
   --background-color: #435266;
   --input-background: #444;
   --button-background: transparent;
@@ -337,7 +339,7 @@ cursor: pointer;
 .mainPage{
   gap: 2%;
   display: flex;
-  top: 100px;
+  top: 130px;
   width: 100vw;
  height: 65%;
 overflow: visible;
@@ -465,4 +467,37 @@ div.msg:hover{
   padding: 10px;
   border-radius: 12px;
   box-shadow: rgb(0, 0, 0) 0 0 10px 1px;
+}
+
+.mainHead{
+  display: flex;
+  position: fixed;
+  top: 50px;
+  left: 100px;
+  width: 80%;
+  height: 60px;
+  gap: 20px;
+  align-items: center;
+}
+
+div.mh{
+  pointer-events: all;
+  cursor: pointer;
+  font-size: small;
+  height: fit-content;
+  width: fit-content;
+  align-items: center;
+  display: flex;
+ padding: 10px;
+ border-radius: 50px;
+}
+div.mh:hover{
+  background-color: #0e3069;
+}
+div.mh.act{
+  pointer-events: none;
+  font-weight:bold;
+  background-color: #1586e277;
+  border: var(--border-color-sel);
+
 }

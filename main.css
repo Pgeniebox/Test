@@ -489,11 +489,12 @@ div.mh{
   pointer-events: all;
   cursor: pointer;
   font-size: small;
-  height: fit-content;
+  height:30px;
   width: fit-content;
   align-items: center;
   display: flex;
- padding: 10px;
+ padding-left: 10px;
+ padding-right: 10px;
  border-radius: 50px;
 }
 div.mh:hover{

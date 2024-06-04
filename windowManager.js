@@ -1,8 +1,8 @@
-'use strict';
+
+
 const controller = new AbortController();
 const signal = controller.signal;
 ///
-
 const $toolTip = $('.option');
 $toolTip.hide();
 ///

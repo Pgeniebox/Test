@@ -24,18 +24,9 @@
 <body>   
    <div class="title"> <p class="title">Accueil</p><img class="act" tit="Paramètres" src="img/mainBar/setting.png"  style="width: 20px;height: 20px;"></div>
    <div class="mainHead">
-    <div class="mh act">Sale d'attente</div><div class="mh">Patient en consultation ( Nom* ) &nbsp;<img style="opacity: 0.3;width: 13px;pointer-events: none;" src="img/mainPage/time.png"><h2 style="pointer-events: none;" > &nbsp;12minute</h2></div></div>
+    <div class="mh act" src="main/sale.txt">Sale d'attente</div><div class="mh" src="main/sale.txt">Patient en consultation ( Nom* ) &nbsp;<img style="opacity: 0.3;width: 13px;pointer-events: none;" src="img/mainPage/time.png"><h2 class="timer" style="pointer-events: none;" > &nbsp;12minute</h2></div></div>
    <div class="mainPage">
-    <div class="p1">
-    <div class="mpHead"><p class="title act">Sale d'attente</p></div>
-    <div class="sa">
-      <div class="saHead"><div class="mb"  ><img style="width: 20px;" src="img/mainPage/assist.png" alt=""> <h1 tit="Voir le profil">amina</h1> <div class="indic" tit="Online"></div><img style="opacity: 0.3;width: 13px;" src="img/mainPage/time.png" class="act" tit="Voir l'historique des connexions"><h2 tit="Connecté a 8h10">3h32</h2> <div class="msg" tit="Les message de l'assistante apparaisse ici"><img style="width: 13px;" src="img/mainPage/msg.png" ></div></div><div class="saDetails">12 Patients</div></div>
-  <ul></ul>
-  </div></div>
-  <div class="p2">
-    <div class="mpHead"><p class="title">Patient suivant</p></div>
-   
-  </div>
+    
 </div> 
    <div class="mainBar">
         <img src="img/logo.png" alt="" style="position: relative;width: 40%;margin-top: 10px;margin-bottom: 0;">
@@ -43,7 +34,6 @@
         <div class="line"></div>
         <div class="mbli sel" tit="Accueil"><img src="img/mainBar/home.png" alt="" style="width: 25px;"></div>
         <div class="line"></div>
-
     </div>
     </div> 
    
@@ -53,9 +43,21 @@
     
 <div class="option tooltip"></div>
 </body>
-<script src="windowManager.js"></script>
-<script src="gitfetch.js"></script>
 <script>
+
+ async function boot(){ const h = await fetch('main/sale.txt').then(response=>response.text())
+document.querySelector('.mainPage').innerHTML = h;
+document.querySelector('.mainPage').outerHTML = h;};
+boot();
+function load_js()
+   {
+      var head= document.getElementsByTagName('head')[0];
+      var script= document.createElement('script');
+      script.src= 'windowManager.js';
+      script.id='wind';
+      head.appendChild(script);
+   }
+   load_js();
    var toolt = document.querySelector('.option');
    toolt.hidden=true;
  
@@ -64,11 +66,15 @@
 /// listPathsInRepository(document.querySelector('ul'));
 
 $(this).clearQueue();
-
+$('.mh').on('click',async (e)=>{
+ $('.mh.act').removeClass('act');
+e.target.classList.add('act');
+});
 let cl = ['ahmed','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila','mouna','nada','hassina','leila'];
 const uu = document.querySelector('ul.sa');
 
 /*
+
 cl.forEach(e=>{
   const li = document.createElement('li');
   uu.appendChild(li);

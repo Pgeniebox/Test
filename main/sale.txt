@@ -1,0 +1,11 @@
+<div class="mainPage">
+    <div class="p1">
+    <div class="mpHead"><p class="title act">Sale d'attente</p></div>
+    <div class="sa">
+      <div class="saHead"><div class="mb"  ><img style="width: 20px;" src="img/mainPage/assist.png" alt=""> <h1 tit="Voir le profil">amina</h1> <div class="indic" tit="Online"></div><img style="opacity: 0.3;width: 13px;" src="img/mainPage/time.png" class="act" tit="Voir l'historique des connexions"><h2 class="timer" tit="Connecté a 8h10">3h32</h2> <div class="msg" tit="Les message de l'assistante apparaisse ici"><img style="width: 13px;" src="img/mainPage/msg.png" ></div></div><div class="saDetails">12 Patients</div></div>
+  <ul></ul>
+  </div></div>
+  <div class="p2">
+    <div class="mpHead"><p class="title">Patient suivant</p></div> 
+</div>
+</div> 

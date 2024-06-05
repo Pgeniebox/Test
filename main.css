@@ -35,7 +35,7 @@ html,body {
  left: 0;
  top: 0;
 text-align: -webkit-center;
-overflow: hidden;
+overflow: auto;
 align-items: center;
 justify-items: center;
 justify-content: center;
@@ -394,8 +394,8 @@ div.mb > h1:hover{
 h1{  
   cursor: pointer;
   color: var(--main-color);
-  font-weight:100;
-  font-size:medium;
+  font-weight:bold;
+  font-size:small;
 }
 h2{  
   cursor: pointer;
@@ -496,6 +496,8 @@ div.mh{
  padding-left: 10px;
  padding-right: 10px;
  border-radius: 50px;
+ background-color: #1586e211;
+
 }
 div.mh:hover{
   background-color: #0e3069;
@@ -506,3 +508,5 @@ div.mh.act{
   background-color: #1586e277;
   border: var(--border-color-sel);
 }
+
+

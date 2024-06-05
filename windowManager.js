@@ -10,7 +10,13 @@ let isFullscreen = false;
 let activeWindow = null;
 let offsetX, offsetY, initialX, initialY, initialWidth, initialHeight;
 ///
+$(document).on('click','.mh', (e)=>{
+  $('.mh.act').removeClass('act');
+ e.target.classList.add('act');
+ 
+ });
 // Define a function to wrap event handlers with requestIdleCallback
+
 
  function withIdleCallback(handler) {
   return function(e) {
@@ -27,13 +33,13 @@ $(document)
           $toolTip.isHidden = true;
           $toolTip.css('opacity', '0');
           $(document).off('mousemove', showToolTip);
-          $('[tit]').on('mouseover', mousemoveTooltip);
+          $(document).on('mouseover','[tit]', mousemoveTooltip);
       }
   }))
   .on('mouseup', ':not(body,html,#taskBar)', withIdleCallback(handleMouseUp))
   .on('mouseout', ':not(body,html,#taskBar)', withIdleCallback(handleMouseOut))
 
-$('[tit]').on('mouseover', withIdleCallback(mousemoveTooltip));
+$(document).on('mouseover','[tit]', withIdleCallback(mousemoveTooltip));
 
 
 

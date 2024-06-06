@@ -1,0 +1,10 @@
+<div class="mainBar">
+        <img src="img/logo.png" alt="" style="position: relative;width: 40%;margin-top: 10px;margin-bottom: 0;">
+       <div class="mbul">
+        <div class="line"></div>
+        <div class="mbli sel" tit="Accueil"><img src="img/mainBar/home.png" alt="" style="width: 25px;"></div>
+        <div class="line"></div>
+        <div class="mbli"  tit="Visualisez l'anatomie, la maladie et les traitements en 3D interactive"> <img src="img/mainBar/3d-view.png" style="width: 25px;" alt=""></div>
+        <div class="line"></div>
+    </div>
+    </div> 

@@ -80,28 +80,48 @@ justify-content: center;
   border-radius: 6px;
   border: 1px solid var(--border-color);
 }
-
+.window{
+  
+}
 #container {
-  box-shadow: rgba(0, 0, 0, 0.616) 0px 0px 2px 1px;
-  background:linear-gradient(45deg, rgb(8, 26, 48),rgb(39, 57, 92));
-  direction: var(--main-direction);
+  align-content: start;
+  box-shadow: rgba(0, 0, 0, 0.847) 0px 0px 10px 1px;
+  background:rgb(27, 55, 92);
   width: 60%;
-  height: 80vh;
+  height: 500px;
   min-height: 300px;
   min-width: 300px;
   border-radius: 6px;
   border: 1px solid var(--border-color);
   text-align: center;
   position: fixed;
-  overflow: hidden;
-  gap: 10%;
+  overflow-y: visible;
+
+}
+.foot.wd{
+  width: 100%;
+  display: flex;
+  position:absolute;
+  height: 50px;
+  z-index: 999999;
+  bottom: -100px;
+  background:rgb(27, 55, 92);
+  border-radius: 0 0 6px 6px;
 }
 
-.head {
+iframe{
+  background:rgb(27, 55, 92);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.head.wd {
+  height: fit-content;
+  top: 0;
   position: relative;
   width: 100%;
   padding: 8px;
-  background-color: rgba(0, 0, 0, 0.226);
   display: flex;
   align-items: center;
   direction: var(--main-direction);

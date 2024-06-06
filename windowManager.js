@@ -10,6 +10,7 @@ let isFullscreen = false;
 let activeWindow = null;
 let offsetX, offsetY, initialX, initialY, initialWidth, initialHeight;
 ///
+
 $(document).on('click','.mh', (e)=>{
   $('.mh.act').removeClass('act');
  e.target.classList.add('act');
@@ -27,6 +28,9 @@ $(document).on('click','.mh', (e)=>{
 }
 
 // Wrap each event handler with requestIdleCallback
+
+$('svg').on('click', handleSvgClick);
+$('.head.wd').on('dblclick', requestFullscreen);
 $(document)
   .on('click', withIdleCallback(() => {
       if (!$toolTip.isHidden) {
@@ -38,7 +42,8 @@ $(document)
   }))
   .on('mouseup', ':not(body,html,#taskBar)', withIdleCallback(handleMouseUp))
   .on('mouseout', ':not(body,html,#taskBar)', withIdleCallback(handleMouseOut))
-
+  .on('mousemove',':not(body,html,#taskBar)', handleMouseMove)
+  .on('mousedown',':not(body,html,#taskBar)', handleMouseDown);
 $(document).on('mouseover','[tit]', withIdleCallback(mousemoveTooltip));
 
 

@@ -22,41 +22,71 @@
 </style>
 </head>
 <body>   
-   <div class="title"> <p class="title">Accueil</p><img class="act" tit="Paramètres" alt="" src="img/mainBar/setting.png"  style="width: 20px;height: 20px;"></div>
+    <div class="mainBar">
+        <img src="img/logo.png" alt="" style="position: relative;width: 40%;margin-top: 10px;margin-bottom: 0;">
+       <div class="mbul">
+        <div class="line"></div>
+        <div class="mbli sel pe" pg tit="Accueil"><img src="img/mainBar/home.png" alt="" style="width: 25px;"></div>
+        <div class="line"></div>
+        <div class="mbli pe" vpg  tit="Visualisez l'anatomie, la maladie et les traitements en 3D interactive"> <img src="img/mainBar/3d-view.png" style="width: 25px;" alt=""></div>
+        <div class="line"></div>
+    </div>
+    </div> 
+    <div class="page">
+   <div class="title"> <p class="title">Accueil</p><img class="act pe" tit="Paramètres" alt="" src="img/mainBar/setting.png"  style="width: 20px;height: 20px;"></div>
    <div class="mainHead">
-    <div class="mh act" src="main/sale.txt">Sale d'attente</div>
-    <div class="mh" src="main/sale.txt">Patient en consultation<img src="img/mainPage/patient.png" style="width: 25px;margin-left: 20px;" alt="">Nom du Patient<img style="opacity: 0.3;width: 13px;pointer-events: none;margin-left: 20px;" src="img/mainPage/time.png" alt=""><h2 class="timer" style="pointer-events: none;margin-left: 5px;" > &nbsp;0</h2></div>
+    <div class="mh act pe" src="main/sale.txt">Sale d'attente</div>
+    <div class="mh pe" src="main/sale.txt"><img src="img/mainPage/patient.png" style="width: 25px;" alt="">Patient en consultation :&nbsp;&nbsp;&nbsp;<p>Nom du Patient</p><img style="opacity: 0.3;width: 13px;pointer-events: none;margin-left: 20px;" src="img/mainPage/time.png" alt=""><h2 class="timer" style="pointer-events: none;margin-left: 5px;" >0</h2></div>
 </div>
  <div class="mainPage">
     <div class="p1">
     <div class="mpHead"><p class="title act">Sale d'attente</p></div>
     <div class="sa">
-      <div class="saHead"><div class="mb"  ><img style="width: 20px;" src="img/mainPage/assist.png" alt=""> <h1 tit="Voir le profil">amina</h1> <div class="indic" tit="Online"></div><img style="opacity: 0.3;width: 13px;" src="img/mainPage/time.png" class="act" tit="Voir l'historique des connexions" alt=""><h2 class="timer" tit=>0</h2> <div class="msg" tit="Les message de l'assistante apparaisse ici"><img style="width: 13px;" src="img/mainPage/msg.png" ></div></div><div class="saDetails">12 Patients</div></div>
+      <div class="saHead"><div class="mb"  ><img style="width: 20px;" src="img/mainPage/assist.png" alt=""> <h1 class="pe" tit="Voir le profil">amina</h1> <div class="indic pef" tit="Online"></div><img style="opacity: 0.3;width: 13px;" src="img/mainPage/time.png" class="act pe" tit="Voir l'historique des connexions" alt=""><h2 class="timer" tit=>0</h2> <div class="msg pe" tit="Les message de l'assistante apparaisse ici"><img style="width: 13px;" src="img/mainPage/msg.png" ></div></div><div class="saDetails">12 Patients</div></div>
   <ul></ul>
   </div></div>
   <div class="p2">
     <div class="mpHead"><p class="title">Patient suivant</p></div> 
 </div>
 </div> 
-   
-   
+</div>
+   <div class="vispage"></div>
         <div id="customDialog" class="custom-dialog">
     <p id="customMessage" style="color: var(--main-color);">This is a notification message.</p>
 </div>
 
 <div class="option tooltip"></div>
 </body>
-    <script src="js/windowManager.js"></script>
-    <script src="js/clock.js"></script>
-    <script src="js/mainBar.js"></script>
+<script src="js/clock.js"></script>
 
 <script>
 
+function withIdleCallback(handler) {
+  return function(e) {
+     requestIdleCallback(() => {
+         setTimeout(()=>{ handler(e);},0);
+      });
+  };
+}
 
-
-   var toolt = document.querySelector('.option');
-   toolt.hidden=true;
+$('.mh').on('click', (e)=>{
+  $('.mh.act').removeClass('act');
+ e.target.classList.add('act');
+ });
  
+   
+ $('.mbli').on('click',(e)=>{
+        if($('.mbli.sel')[0]['attributes'].vpg){     $('.vispage').css({left: '-1000px'})                         }
+       $('.mbli.sel').removeClass('sel');
+       e.target.classList.add('sel');
+       if(!e.target['attributes'].pg){
+       $('.page').css({opacity:0.3});
+       $('.page .pe').css({pointerEvents:'none'}); }else{       $('.page').css({opacity:1});
+       $('.page .pe').css({pointerEvents:'all'});        }
+       if(e.target['attributes'].vpg){    $('.vispage').css({left: '80px'})         }
+      
+});
+   
 
 
 $(this).clearQueue();
@@ -65,5 +95,6 @@ updateClock();
 
 
 </script>
+<script src="js/tooltip.js"></script>
 
 </html>

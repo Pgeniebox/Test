@@ -49,9 +49,10 @@ justify-content: center;
    font-feature-settings:on;
    -webkit-font-smoothing: antialiased;
    transition: shadow 1s ease-in-out;
+   pointer-events:none;
 }
 .option {
-  aspect-ratio: 4/1;
+  aspect-ratio: 8/1;
   max-width: min-content+20px;
   top: 300px; 
   left: 30px;
@@ -127,13 +128,20 @@ justify-content: center;
   gap: 10px;
 }
 
+div.page{
+  position: fixed;
+  top: 0;
+  left: 0;
+height: 100%;
+width: 100%;
+transition: opacity 0.5s ease-in-out;
+}
 
 
 
-
-.title {
+p.title {
   color: var(--main-color);
-  font-size: 20px;
+  font-size: medium;
   font-family: "Noto Sans", sans-serif;
   font-optical-sizing:auto;
   font-weight:600 ;
@@ -153,7 +161,6 @@ justify-content: center;
       box-shadow: var(--shadow);
       border-radius: 8px;
       padding: 5px;
-      pointer-events: all;
       cursor: pointer;
       z-index:  1;
       font-weight: 600;
@@ -270,7 +277,6 @@ position: relative;
 font-weight: 700;
 }
 p.title.act{
-  cursor: pointer;
   font-weight: 400;
 }
 p.title.act:hover{
@@ -299,7 +305,6 @@ img{
 }
 
 img.act{
-pointer-events: all;
 cursor: pointer;
 padding: 5px;
 border-radius: 50px;
@@ -384,7 +389,6 @@ h2{
 
 div.sa{
   width: auto;
-  pointer-events: all;
 margin-top: 20px;
 height: 400px;
 border-radius: 12px;
@@ -434,7 +438,7 @@ div.msg:hover{
 
 .p2{
   height: 100vh;
- background:  linear-gradient(45deg, rgb(8, 26, 48),rgb(39, 57, 92));
+ background:  linear-gradient(45deg, rgb(12, 36, 67),rgb(57, 80, 125));
   width: 25%;
   padding: 10px;
   border-radius: 12px;
@@ -453,12 +457,15 @@ div.msg:hover{
 }
 
 div.mh{
-  pointer-events: all;
   cursor: pointer;
   font-size: small;
+  font-weight: bold;
   height:30px;
   width: fit-content;
   align-items: center;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
   display: flex;
  padding-left: 10px;
  padding-right: 10px;
@@ -470,8 +477,7 @@ div.mh:hover{
   background-color: #0e3069;
 }
 div.mh.act{
-  pointer-events: none;
-  font-weight:bold;
+  font-size: medium;
   background-color: #1586e277;
   border: var(--border-color-sel);
 }
@@ -479,4 +485,28 @@ div.mh.act{
 
 iframe{
   opacity:1;
+}
+
+.pe{
+  pointer-events: all;
+}
+
+.pef{
+  pointer-events: fill;
+}
+
+p{
+  font-weight: 100;
+}
+
+.vispage{
+height: 80%;
+left:-1000px;
+width: 700px;
+top: 100px;
+position: absolute;
+background-color: #071a2b;
+border-radius: 8px;
+box-shadow: rgba(0, 0, 0, 0.474) 0 0 5px 1px;
+transition: all 0.2s ease-in-out;
 }

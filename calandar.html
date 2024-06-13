@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="plugins/jquery-1.12.4.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+   <script src="plugins/jquery.nav.min.js"></script>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="fonts/css2.css" rel="stylesheet">
+    <title>Custom Date Picker</title>
+    <style>
+        body{
+            background-color: #031525;
+        }
+
+        .date-picker {
+            position: relative;
+            display: inline-block;
+            top: 100px;
+            left: 100px;
+        }
+        .date-input {
+            pointer-events: all;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px 6px 0 0;
+  border-bottom: 2px solid rgb(56, 145, 108);
+  width: 60%;
+  height: 8%;
+  outline: 0;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 10px;
+  color: white;
+        }
+        .date-input:hover{
+            background-color: rgb(12, 32, 51);
+            border-bottom: 2px solid rgb(57, 216, 150);
+        }
+     
+        ::-webkit-scrollbar{
+            pointer-events: all;
+            background-color: #111e29;
+            width: 12px;
+        }
+        ::-webkit-scrollbar-thumb{
+            background-color: rgba(57, 216, 150, 0.562);
+            border-radius: 60px;
+            border: 4px solid #111e29;
+            cursor:grab;
+        }
+        ::-webkit-scrollbar-thumb:active{            cursor:grab;
+            cursor:grabbing;
+
+            background-color: rgb(57, 216, 150); 
+        }
+        ::-webkit-scrollbar-thumb:hover{
+            background-color: rgb(57, 216, 150); 
+        }
+
+*{
+    font-family:"Google Sans", sans-serif;
+    color: aliceblue;
+    -webkit-user-select:none;
+    user-select: none;
+}
+
+.calendar{
+    position: relative;
+    width: 300px;
+    display:flow-root;
+    height: max-content;
+    background-color: #172938;
+    border-radius: 5px;
+    box-shadow: black 0 0 0.5rem 0.01rem;
+}
+    .ch{z-index: 1;
+        border-radius: 5px 5px 0 0;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        justify-items: center;
+        position: relative;
+        overflow:visible;
+ display: flex;
+padding-left: 10px;
+padding-right: 10px;
+height: 50px;
+background-color: rgb(31, 53, 75);
+transition: all 5s ease-in-out;
+    }
+      
+    
+.mth{pointer-events: none;
+    position: relative;
+    min-width: 80px;
+    height: 30px;
+    display:flow-root;
+    background-color: transparent;
+
+    overflow: hidden;
+    padding: 0;
+border-radius:5px 5px 0 0;
+}
+.mth.v{
+    background-color: #111e29;
+    overflow: visible;
+}
+.sel{pointer-events: all; 
+    position: relative;
+        border-radius: 5px;
+    cursor: pointer;
+    justify-content: end;
+padding-left: 6px;
+padding-top: 6px;
+padding-bottom: 6px;
+padding-right: 1px;
+display: flex;
+align-items: center;
+color: rgb(207, 224, 255);
+    font-size: x-small;
+    width: inherit;
+    background-color: #111e29;
+    gap: 10px;
+}
+.sel:hover{
+    background-color: rgba(57, 216, 150, 0.562);
+}
+.sel:active{
+            background-color: rgb(57, 216, 150); 
+        }
+
+.sel *{pointer-events: none;}
+
+        .lstch{pointer-events: all;
+        position: absolute;
+        width: 80px;
+        background-color: #111e29;
+        overflow-y: scroll;
+        height: 300px;
+        display:flow-root;
+     justify-content: center;
+        
+        
+        border-radius: 0 0 5px 5px;
+        scroll-snap-type:proximity;
+ }
+
+     .lstch::-webkit-scrollbar{
+          border-radius:0 0 5px 0;
+        }
+
+    .lstch >*{
+        position: relative;
+        padding: 0;
+        cursor: pointer;
+      width: 90%;
+      height: 35px;
+      align-self: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+    .lstch > *:hover{
+        background-color: rgba(57, 216, 150, 0.562);
+        }
+        .lstch >*:active{
+            background-color: rgb(57, 216, 150); 
+        }
+
+
+.txt{
+    font-size: medium;
+    width: 100%;
+}
+
+table.cb{
+    z-index: 0;
+    position: relative;
+   width: 100%;
+   padding: 5px;
+}
+
+#cb th{
+    padding: 3px;
+    border-radius: 3px;
+    background-color: rgb(31, 53, 75);
+}
+#ctb{
+    text-align: center;
+    font-size: small;
+    font-weight: bold;
+}
+
+#ctb tr :not(#na){  
+    background-color: rgb(39, 63, 83);
+    padding: 3px;
+    border-radius: 3px;
+    pointer-events: all;
+    cursor: pointer;
+}
+#ctb tr :not(#na):hover{
+    background-color: rgba(57, 216, 150, 0.562);
+ }
+ #ctb tr :not(#na):active{
+    background-color: rgb(57, 216, 150); 
+ }
+   </style>
+</head>
+<body>
+
+<div>
+<div class="calendar">
+<div class="ch" >
+    
+    <div class="mth"> <div class="sel">
+    <div class="txt month">Janvier</div>▼</div>
+    <div class="lstch month" hidden></div>
+
+</div>
+
+<div class="mth"> 
+    <div class="sel">
+        <div class="txt year">2024</div>▼</div>
+        <div class="lstch year" hidden></div></div>
+    </div>
+
+    <table class="cb">
+        <thead id="cb">
+            <tr>
+                <th>Dim</th>
+                <th>Lun</th>
+                <th>Mar</th>
+                <th>Mer</th>
+                <th>Jeu</th>
+                <th>Ven</th>
+                <th>Sam</th>
+            </tr>
+        </thead>
+        <tbody id="ctb">  
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+   
+    <script>
+const mth= ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
+
+mth.forEach(m=>{const ch =document.createElement('h4'); ch.textContent=m; document.querySelector('.lstch.month').appendChild(ch)})
+
+function lstchY() { let lstch =document.querySelector('.lstch.year');
+                const currentYear = new Date().getFullYear();
+                for (let year = currentYear - 70; year <= currentYear + 10; year++) {
+                    const option = document.createElement('h4');
+                    option.value = year;
+                    option.textContent = year;
+                    if(year===currentYear){  option.classList.add('cy');  }
+                    lstch.appendChild(option)
+                }
+                lstch.scrollTo(0,lstch.querySelector('.cy').offsetTop);
+            }
+lstchY();
+
+function ctbd(){
+    var arr= [];
+    
+arr['days'] = Array.from(document.querySelector('.lstch.month').childNodes).map(m=>{return m.textContent});
+arr['month'] = arr.days.indexOf(document.getElementsByClassName('txt month')[0].textContent)+1;
+arr['year'] = Number(document.getElementsByClassName('txt year')[0].textContent);
+arr['md'] = new Date(arr.year,arr.month,0).getUTCDate();
+ arr['mld'] = new Date(arr.year,arr.month).getUTCDay();
+arr['fd'] = 7 - (arr.md-(21+arr.mld));
+arr['cb'] = document.querySelector('#ctb');
+let date = 1;
+for (let i = 0; i < 5; i++) {
+        const row = document.createElement('tr');
+        arr.cb.appendChild(row);
+for (let j = 0; j < 7; j++) {
+            const cell = document.createElement('td');
+if((i==0&&j<=arr.fd)||date>arr.md){cell.id = 'na'}else{
+cell.textContent = date;
+cell.dataset.date= new Date(arr.year,arr.month,date).toLocaleDateString().replaceAll('/','-');
+    date++;
+}
+row.appendChild(cell);
+}}
+ arr = null;
+} 
+
+ctbd();
+
+function hidelst(e){
+     if(e.target.nodeName==='H4'){
+      $('.mth.v')[0].querySelector('txt').textContent = e.target.textContent;
+     }
+     $('.mth.v')[0].classList.remove('v');
+     $(document).off('click',hidelst);
+}
+
+
+function openlst(e){
+ 
+    const lstch = e.target.nextElementSibling;
+    const ep = e.target.parentElement;
+        ep.classList.add('v')
+      $(document).on('click',hidelst);
+}
+
+ $('.mth:not(.v)').on('click',openlst); 
+
+    </script>
+</body>
+</html>

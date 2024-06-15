@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="plugins/jquery-1.12.4.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-   <script src="plugins/jquery.nav.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   <script src="plugins/jquery.nav.min.js"></script>
    <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="fonts/css2.css" rel="stylesheet">
@@ -21,25 +19,7 @@
             top: 100px;
             left: 100px;
         }
-        .date-input {
-            pointer-events: all;
-  background-color: transparent;
-  border: none;
-  border-radius: 6px 6px 0 0;
-  border-bottom: 2px solid rgb(56, 145, 108);
-  width: 60%;
-  height: 8%;
-  outline: 0;
-  font-size: 20px;
-  font-weight: 600;
-  padding: 10px;
-  color: white;
-        }
-        .date-input:hover{
-            background-color: rgb(12, 32, 51);
-            border-bottom: 2px solid rgb(57, 216, 150);
-        }
-     
+       
         ::-webkit-scrollbar{
             pointer-events: all;
             background-color: #111e29;
@@ -67,14 +47,57 @@
     user-select: none;
 }
 
+.inputC{
+            position: relative;
+            display: flow-root;
+            height: max-content;
+            width: max-content;
+          overflow: hidden;
+        }
+        .inputC.v{
+            overflow: visible;
+        }
+        .inputC > *{
+            width: 400px;
+        }
+        .inputC.v > .date-input{
+            background-color: rgb(18, 47, 75);
+            border-bottom: 2px solid rgb(57, 216, 150);
+        }
+        .date-input {z-index: 2;
+            position: relative;
+            pointer-events: all;
+  background-color: rgb(12, 32, 51);
+  border: 2px solid transparent;
+  border-bottom: 2px solid rgb(56, 145, 108);
+  border-radius: 6px 6px 0 0;
+  height: 40px;
+  outline: 0;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 0;
+  color: white;
+  text-indent: 20px;
+        }
+        ::placeholder{
+            color: rgba(255, 255, 255, 0.329);
+        }
+        .date-input:hover{
+            background-color: rgb(18, 47, 75);
+            border-bottom: 2px solid rgb(57, 216, 150);
+        }
+     
+        
+
 .calendar{
-    position: relative;
-    width: 300px;
+    border: 2px solid rgb(57, 216, 150);
+    border-top: none;
+    position: absolute;
     display:flow-root;
     height: max-content;
     background-color: #172938;
-    border-radius: 5px;
-    box-shadow: black 0 0 0.5rem 0.01rem;
+    border-radius: 0 0 5px 5px;
+    box-shadow: rgba(0, 0, 0, 0.507) 0 5px 1rem 0.1rem;
 }
     .ch{z-index: 1;
         border-radius: 5px 5px 0 0;
@@ -95,11 +118,10 @@ transition: all 5s ease-in-out;
     
 .mth{pointer-events: none;
     position: relative;
-    min-width: 80px;
+    min-width: 25%;
     height: 30px;
     display:flow-root;
     background-color: transparent;
-
     overflow: hidden;
     padding: 0;
 border-radius:5px 5px 0 0;
@@ -107,10 +129,12 @@ border-radius:5px 5px 0 0;
 .mth.v{
     background-color: #111e29;
     overflow: visible;
+    
 }
 .sel{pointer-events: all; 
     position: relative;
         border-radius: 5px;
+        
     cursor: pointer;
     justify-content: end;
 padding-left: 6px;
@@ -134,16 +158,18 @@ color: rgb(207, 224, 255);
 
 .sel *{pointer-events: none;}
 
-        .lstch{pointer-events: all;
+        .lstch{
+            box-sizing: border-box;
+            pointer-events: all;
         position: absolute;
-        width: 80px;
+        width: 100%;
         background-color: #111e29;
         overflow-y: scroll;
         height: 300px;
         display:flow-root;
      justify-content: center;
         
-        
+        border-left: 6px solid #111e29;
         border-radius: 0 0 5px 5px;
         scroll-snap-type:proximity;
  }
@@ -213,21 +239,21 @@ table.cb{
    </style>
 </head>
 <body>
-
-<div>
+    <div class="inputC" >
+    <input class="date-input" placeholder="Date..." type="text" tabindex="0">
 <div class="calendar">
 <div class="ch" >
     
-    <div class="mth"> <div class="sel">
-    <div class="txt month">Janvier</div>▼</div>
-    <div class="lstch month" hidden></div>
-
+    <div class="mth" > <div class="sel month" tabindex="0">
+    <div class="txt month" >Janvier</div>▼</div>
+    <div class="lstch month access" accesskey=".txt.month" data-a="textContent" data-b="textContent"></div>
 </div>
 
-<div class="mth"> 
-    <div class="sel">
+<div class="mth" > 
+    <div class="sel year" tabindex="0">
         <div class="txt year">2024</div>▼</div>
-        <div class="lstch year" hidden></div></div>
+        <div class="lstch year access" accesskey=".txt.year" data-a="textContent" data-b="textContent"></div>
+    </div>
     </div>
 
     <table class="cb">
@@ -246,12 +272,10 @@ table.cb{
         </tbody>
     </table>
 </div>
+</div>
 
 
 
-
-
-   
     <script>
 const mth= ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
 
@@ -284,11 +308,19 @@ let date = 1;
 for (let i = 0; i < 5; i++) {
         const row = document.createElement('tr');
         arr.cb.appendChild(row);
+        row.classList.add('access');
+        row.accessKey = '.date-input';
+        row.dataset['a'] = 'value' ;
+        row.dataset['b'] = 'nonce';
 for (let j = 0; j < 7; j++) {
             const cell = document.createElement('td');
-if((i==0&&j<=arr.fd)||date>arr.md){cell.id = 'na'}else{
+if((i==0&&j<=arr.fd)||date>arr.md){ 
+    if(j==arr.fd){   cell.textContent='<';    cell.id='pm';  }
+    else if(date-1==arr.md){    cell.textContent='>';    cell.id='nm'; row.appendChild(cell);   break;  }
+     else{
+    cell.id = 'na'}}else{
 cell.textContent = date;
-cell.dataset.date= new Date(arr.year,arr.month,date).toLocaleDateString().replaceAll('/','-');
+cell.nonce= new Date(arr.year,arr.month,date).toLocaleDateString().replaceAll('/','-');
     date++;
 }
 row.appendChild(cell);
@@ -298,25 +330,53 @@ row.appendChild(cell);
 
 ctbd();
 
-function hidelst(e){
-     if(e.target.nodeName==='H4'){
-      $('.mth.v')[0].querySelector('txt').textContent = e.target.textContent;
-     }
-     $('.mth.v')[0].classList.remove('v');
-     $(document).off('click',hidelst);
-}
 
 
-function openlst(e){
+
+ $(document).on('click','[tabIndex] , *:has(>[sel]) *',tabin);
  
-    const lstch = e.target.nextElementSibling;
-    const ep = e.target.parentElement;
-        ep.classList.add('v')
-      $(document).on('click',hidelst);
+function tabin(e){
+    $(document).off('click','[tabIndex] , *:has(>[sel]) *',tabin);
+     e.stopPropagation();
+     
+    if(e.target.tabIndex==0){
+    if($('.v').length>0) {$('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].removeAttribute('sel'); 
+    $(document).off('click', tabout)}
+    e.target.tabIndex =1;
+    $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].setAttribute('sel','');
+    e.target.parentElement.classList.toggle('v'); 
+    $(document).on('click', tabout);}
+    else if(e.target.tabIndex==1) {
+    e.target.parentElement.classList.toggle('v');
+     $(document).off('click', tabout);
+        $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].removeAttribute('sel');
+        e.target.tabIndex =0;
+        if($('.v').length>0) {$('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].setAttribute('sel','');
+              $(document).on('click', tabout);           }
+    }else if(e.target.parentElement.classList.contains('access')){
+
+        $(e.target.parentElement.accessKey)[0][e.target.parentElement.dataset.a] = e.target[e.target.parentElement.dataset.b];
+        $('.v')[$('.v').length-1].classList.toggle('v');
+    $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].removeAttribute('sel');
+    $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].tabIndex = 0;
+    if($('.v').length>0) {$('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].setAttribute('sel','');}
+    
+     $(document).off('click', tabout);
+     if($('.v').length>0) { $(document).on('click', tabout);      }
+     }
+     $(document).on('click','[tabIndex] , *:has(>[sel]) *',tabin);
 }
 
- $('.mth:not(.v)').on('click',openlst); 
+ function tabout(e){
+ $(document).off('click', tabout); 
+    if($('.v').length>0) { $('.v')[$('.v').length-1].classList.toggle('v');
+    $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].removeAttribute('sel');
+    $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].tabIndex = 0; }
+    if($('.v').length>0) {$('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].setAttribute('sel','');
+         $(document).on('click', tabout);           }
+}
+$('.date-input').click();
 
-    </script>
+</script>
 </body>
 </html>

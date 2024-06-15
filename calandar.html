@@ -239,33 +239,35 @@ table.cb{
    </style>
 </head>
 <body>
-    <div class="inputC" >
-    <input class="date-input" placeholder="Date..." type="text" tabindex="0">
-<div class="calendar">
+    <div>
+    <div class="inputC" id="0" >
+    <input class="date-input" placeholder="Date..." type="text" tabindex="0" nonce='false'>
+<div class="calendar" id="0">
 <div class="ch" >
     
     <div class="mth" > <div class="sel month" tabindex="0">
     <div class="txt month" >Janvier</div>▼</div>
-    <div class="lstch month access" accesskey=".txt.month" data-a="textContent" data-b="textContent"></div>
+    <div class="lstch month access" accesskey="$('.txt.month',e.data)[0].textContent= e.target.textContent;$('.txt.month',e.data)[0].id= $('.lstch.month  *',e.data).toArray().map(m=>{return m.textContent}).indexOf($('.txt.month',e.data)[0].textContent);ctbd(e.data); " ></div>
 </div>
 
 <div class="mth" > 
     <div class="sel year" tabindex="0">
         <div class="txt year">2024</div>▼</div>
-        <div class="lstch year access" accesskey=".txt.year" data-a="textContent" data-b="textContent"></div>
+        <div class="lstch year access" accesskey="$('.txt.year',e.data)[0].textContent= e.target.textContent;ctbd(e.data);" ></div>
     </div>
     </div>
 
     <table class="cb">
         <thead id="cb">
             <tr>
-                <th>Dim</th>
                 <th>Lun</th>
                 <th>Mar</th>
                 <th>Mer</th>
                 <th>Jeu</th>
                 <th>Ven</th>
                 <th>Sam</th>
+                <th>Dim</th>
+
             </tr>
         </thead>
         <tbody id="ctb">  
@@ -273,52 +275,88 @@ table.cb{
     </table>
 </div>
 </div>
+</div>
 
+<div style="position: relative;top: 200px;">
+    <div class="inputC" id="1" >
+    <input class="date-input" placeholder="Date..." type="text" tabindex="0" nonce='false'>
+<div class="calendar" id="1">
+<div class="ch" >
+    
+    <div class="mth" > <div class="sel month" tabindex="0">
+    <div class="txt month" >Janvier</div>▼</div>
+    <div class="lstch month access" accesskey="$('.txt.month',e.data)[0].textContent= e.target.textContent;$('.txt.month',e.data)[0].id= $('.lstch.month  *',e.data).toArray().map(m=>{return m.textContent}).indexOf($('.txt.month',e.data)[0].textContent);ctbd(e.data); " ></div>
+</div>
+
+<div class="mth" > 
+    <div class="sel year" tabindex="0">
+        <div class="txt year">2024</div>▼</div>
+        <div class="lstch year access" accesskey="$('.txt.year',e.data)[0].textContent= e.target.textContent;ctbd(e.data);" ></div>
+    </div>
+    </div>
+
+    <table class="cb">
+        <thead id="cb">
+            <tr>
+                <th>Lun</th>
+                <th>Mar</th>
+                <th>Mer</th>
+                <th>Jeu</th>
+                <th>Ven</th>
+                <th>Sam</th>
+                <th>Dim</th>
+
+            </tr>
+        </thead>
+        <tbody id="ctb">  
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
 
 
     <script>
 const mth= ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
-
-mth.forEach(m=>{const ch =document.createElement('h4'); ch.textContent=m; document.querySelector('.lstch.month').appendChild(ch)})
-
-function lstchY() { let lstch =document.querySelector('.lstch.year');
+function lstchM(e){
+mth.forEach(m=>{const ch =document.createElement('h4'); ch.textContent=m; $('.lstch.month',e)[0].appendChild(ch)})
+$('.txt.month',e)[0].textContent = $('.lstch.month',e)[0].children[new Date().getMonth()].textContent;
+$('.txt.month',e)[0].id = new Date().getMonth();
+}
+function lstchY(e) { 
+           $('.lstch.year',e)[0];
                 const currentYear = new Date().getFullYear();
                 for (let year = currentYear - 70; year <= currentYear + 10; year++) {
                     const option = document.createElement('h4');
                     option.value = year;
                     option.textContent = year;
                     if(year===currentYear){  option.classList.add('cy');  }
-                    lstch.appendChild(option)
+                    $('.lstch.year',e)[0].appendChild(option)
                 }
-                lstch.scrollTo(0,lstch.querySelector('.cy').offsetTop);
+                $('.lstch.year',e)[0].scrollTo(0, $('.lstch.year',e)[0].querySelector('.cy').offsetTop);
             }
-lstchY();
 
-function ctbd(){
+function ctbd(e){
     var arr= [];
-    
-arr['days'] = Array.from(document.querySelector('.lstch.month').childNodes).map(m=>{return m.textContent});
-arr['month'] = arr.days.indexOf(document.getElementsByClassName('txt month')[0].textContent)+1;
-arr['year'] = Number(document.getElementsByClassName('txt year')[0].textContent);
-arr['md'] = new Date(arr.year,arr.month,0).getUTCDate();
- arr['mld'] = new Date(arr.year,arr.month).getUTCDay();
-arr['fd'] = 7 - (arr.md-(21+arr.mld));
-arr['cb'] = document.querySelector('#ctb');
+    $('#ctb *',e).remove();
+arr['month'] = Number($('.txt.month',e)[0].id);
+arr['year'] = Number($('.txt.year',e)[0].textContent);
+arr['md'] = new Date(arr.year,arr.month+1).getUTCDate();
+arr['fd'] = new Date(arr.year,arr.month,1).getUTCDay();
+
 let date = 1;
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 6; i++) {
+    if(date>arr.md){break;}
         const row = document.createElement('tr');
-        arr.cb.appendChild(row);
+        $('#ctb',e)[0].appendChild(row);
         row.classList.add('access');
-        row.accessKey = '.date-input';
-        row.dataset['a'] = 'value' ;
-        row.dataset['b'] = 'nonce';
+        row.accessKey = "$('.date-input',e.data)[0].value= e.target.nonce;$('.date-input',e.data)[0].toggle = false;";
+       
 for (let j = 0; j < 7; j++) {
+
             const cell = document.createElement('td');
-if((i==0&&j<=arr.fd)||date>arr.md){ 
-    if(j==arr.fd){   cell.textContent='<';    cell.id='pm';  }
-    else if(date-1==arr.md){    cell.textContent='>';    cell.id='nm'; row.appendChild(cell);   break;  }
-     else{
-    cell.id = 'na'}}else{
+if((i==0&&j<arr.fd)||date>arr.md){ 
+    cell.id = 'na'}else{
 cell.textContent = date;
 cell.nonce= new Date(arr.year,arr.month,date).toLocaleDateString().replaceAll('/','-');
     date++;
@@ -328,54 +366,78 @@ row.appendChild(cell);
  arr = null;
 } 
 
-ctbd();
 
 
+$(document).on('click','*:has(>[nonce="false"])',(e)=>{ 
+    e.stopPropagation();
+    $(document).off('click','[tabIndex] , *:has(>[sel]) *',tabin);
+    $(document).off('click', tabout);
+    if($('.v').length>0){
+            $('[tabIndex="1"]').attr('tabindex','0');
+            $('[nonce="true"]').attr('nonce','false');
+            $('[sel]').removeAttr('sel');
+          $('.v').toggleClass('v');
+        }
+    $(e.target).attr('nonce','true');
+     lstchM($('.inputC#'+e.target.parentElement.id));
+     lstchY($('.inputC#'+e.target.parentElement.id));
+     ctbd($('.inputC#'+e.target.parentElement.id));
+     console.log(e.target.parentElement.id)
+      $(document).on('click','[tabIndex] , *:has(>[sel]) *',$('.inputC#'+e.target.parentElement.id).parent(),tabin); e.target.click();
+    
+     });
 
 
- $(document).on('click','[tabIndex] , *:has(>[sel]) *',tabin);
+ 
  
 function tabin(e){
+    if(e.target.nonce ==='false'){return;}
     $(document).off('click','[tabIndex] , *:has(>[sel]) *',tabin);
      e.stopPropagation();
      
     if(e.target.tabIndex==0){
-    if($('.v').length>0) {$('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].removeAttribute('sel'); 
+    if($('.v',e.data).length>0) {$('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].removeAttribute('sel'); 
     $(document).off('click', tabout)}
     e.target.tabIndex =1;
-    $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].setAttribute('sel','');
+    $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].setAttribute('sel','');
     e.target.parentElement.classList.toggle('v'); 
-    $(document).on('click', tabout);}
+    $(document).on('click',null,e.data, tabout);}
     else if(e.target.tabIndex==1) {
     e.target.parentElement.classList.toggle('v');
      $(document).off('click', tabout);
-        $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].removeAttribute('sel');
+        $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].removeAttribute('sel');
         e.target.tabIndex =0;
-        if($('.v').length>0) {$('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].setAttribute('sel','');
-              $(document).on('click', tabout);           }
+        if($('.v',e.data).length>0) {   $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].setAttribute('sel','');
+              $(document).on('click',null,e.data, tabout);           }
     }else if(e.target.parentElement.classList.contains('access')){
 
-        $(e.target.parentElement.accessKey)[0][e.target.parentElement.dataset.a] = e.target[e.target.parentElement.dataset.b];
-        $('.v')[$('.v').length-1].classList.toggle('v');
-    $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].removeAttribute('sel');
-    $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].tabIndex = 0;
-    if($('.v').length>0) {$('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].setAttribute('sel','');}
+                 eval(e.target.parentElement.accessKey);
+
+        $('.date-input',e.data).attr('nonce','false');
+        $('.v',e.data)[$('.v',e.data).length-1].classList.toggle('v');
+    $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].removeAttribute('sel');
+    $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].tabIndex = 0;
+    if($('.v',e.data).length>0) {$('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].setAttribute('sel','');}
     
      $(document).off('click', tabout);
-     if($('.v').length>0) { $(document).on('click', tabout);      }
+     if($('.v',e.data).length>0) { $(document).on('click',null,e.data, tabout);      }
      }
-     $(document).on('click','[tabIndex] , *:has(>[sel]) *',tabin);
+    if($('.v',e.data).length>0){ $(document).on('click','[tabIndex] , *:has(>[sel]) *',e.data,tabin);}
 }
 
  function tabout(e){
+    if(e.target.nonce ==='false'){return;}
+    e.stopPropagation();
  $(document).off('click', tabout); 
-    if($('.v').length>0) { $('.v')[$('.v').length-1].classList.toggle('v');
-    $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].removeAttribute('sel');
-    $('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].tabIndex = 0; }
-    if($('.v').length>0) {$('[tabIndex="1"]')[$('[tabIndex="1"]').length-1].setAttribute('sel','');
-         $(document).on('click', tabout);           }
+    if($('.v',e.data).length>0) { $('.v',e.data)[$('.v',e.data).length-1].classList.toggle('v');
+    $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].removeAttribute('sel');
+    $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].tabIndex = 0; }
+    if($('.v',e.data).length>0) {$('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].setAttribute('sel','');
+         $(document).on('click',null,e.data, tabout);           }
+         if($('.v',e.data).length==0){ $('.date-input',e.data).attr('nonce','false'); $(document).off('click','[tabIndex] , *:has(>[sel]) *',tabin); $(document).off('click', tabout); 
+        }
 }
-$('.date-input').click();
+///$('.date-input').click();
 
 </script>
 </body>

@@ -15,17 +15,27 @@ aquery.e: list of functions to run whene the first click in aquery.c
 example of usage for all the elements:
  <div class="parent" accessKey="customAquery.closeTab(e);">........</div>
 --to use another window you should  set an id for the parent of (aquery.c) wich is (aquery.d)
+--use id "na" to element child of .access parent to ignore it
+--use return true , in the accessKey function to close the tab
+-- use e.data.b.closeAllTabs(e.data.b) to close all the tabs
+-- use e.data.a in function to specify the context, e.data.a = parent of aquery.c
+-- e.data.c = aquery.c
+-- e.data.c = aquery
+-- e.data.a = aquery.d + id (parent of aquery.c)
 */
 
+///'use strict' ;
 
 
-function aquery(a, b, c, d, e) {
-    this.eval = window.eval;
+
+function aquery(a, b, c, d, e,f) {
     this.a = a;
     this.b = b;
     this.c = c;
     this.d = d;
     this.e = e;
+    this.ready = false;
+    this.close = f||false;
 }
 
 // Method to run all functions in functionsList with a given context
@@ -37,87 +47,159 @@ aquery.prototype.fn = function(a) {
     }
 };
 
-aquery.prototype.closeTab = function(e){
-    $(customCh1.c,e.data).attr('nonce','false');
-        $(customCh1.a,e.data)[$(customCh1.a,e.data).length-1].classList.toggle(customCh1.b);
-    $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].removeAttribute('sel');
-    $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].tabIndex = 0;
-    if($(customCh1.a,e.data).length>0) {$('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].setAttribute('sel','');}
-    
-     $(document).off('click', customCh1.tabout);
-     if($(customCh1.a,e.data).length>0) { $(document).on('click',null,e.data, customCh1.tabout);      }
-}
 
-
-aquery.prototype.setInitListner = function(){
-    $(document).on('click','*:has(>[nonce])',(e)=>{ 
-        e.stopPropagation();
-        if(undefined== e.target.nonce||e.target.nonce.length==0){return;}
-    $(document).off('click','[tabIndex] , *:has(>[sel]) *',this.tabin);
-    $(document).off('click', this.tabout);
+aquery.prototype.closeAllTabs = function(e){
+    window.$(document).off('click','[tabIndex] , *:has(>[sel]) *',e.tabin);
+    window.$(document).off('click','*:not(*:has(>[sel]) *)', e.tabout);
             $('[tabIndex="1"]').attr('tabindex','0');
             $('[nonce="true"]').attr('nonce','false');
             $('[sel]').removeAttr('sel');
-          $(this.a).toggleClass(this.b);
-    $(e.target).attr('nonce','true');
-     this.fn($(this.d+e.target.parentElement.id));
+          $(e.a).toggleClass(e.b);
+}
+
+aquery.prototype.closeTab = function(e){
     
-     $(document).on('click','[tabIndex] , *:has(>[sel]) *',$(this.d+e.target.parentElement.id).parent(),this.tabin);
-      e.target.click();
+    window.$(window.$('*:has(>[sel]) [sel]'))[0].tabIndex =0;
+    window.$(window.$('*:has(>[sel]) [sel]')).removeAttr('sel');
+    window.$(e.data.b.a,e.data.a)[window.$(e.data.b.a,e.data.a).length-1].classList.toggle(e.data.b.b);
+        window.$('[tabIndex="1"]',e.data.a)[window.$('[tabIndex="1"]',e.data.a).length-1].setAttribute('sel','');
+       
+}                                                                                                                                                                                                                                                               
+
+
+
+aquery.prototype.setInitListner = function(){        
+    let self = this;
+    $(document).on('click','*:has(>'+self.c+')',(ev)=>{ 
+         if(!ev.target.classList.contains(self.c.replace('.',''))){return;}
+        ev.stopPropagation();
+
+        if(undefined== ev.target.nonce||ev.target.nonce.length==0){return;}
+    $(document).off('click','[tabIndex] , *:has(>[sel]) *',self.tabin);
+    $(document).off('click', self.tabout);
+            $('[tabIndex="1"]').attr('tabindex','0');
+            $('[nonce="true"]').attr('nonce','false');
+            $('[sel]').removeAttr('sel');
+          $(self.a).toggleClass(self.b);
+    $(ev.target).attr('nonce','true');
+    self.fn($(self.d+ev.target.parentElement.id));
+     $(document).on('click','[tabIndex] , *:has(>[sel]) *',{a:$(self.d+ev.target.parentElement.id).parent(),b:self},self.tabin);
+      ev.target.click();
          });
 }
 
-aquery.prototype.tabin = function(e){
-    e.stopPropagation();
-    if(e.target.nonce ==='false'){return;}
-    $(document).off('click','[tabIndex] , *:has(>[sel]) *',customCh1.tabin);
-    if(e.target.tabIndex==0){
-    if($(customCh1.a,e.data).length>0) {$('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].removeAttribute('sel'); 
-    $(document).off('click', customCh1.tabout)}
-    e.target.tabIndex =1;
-    $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].setAttribute('sel','');
 
-    e.target.parentElement.classList.toggle(customCh1.b); 
-    $(document).on('click',null,e.data, customCh1.tabout);}
+aquery.prototype.tabin = function(e){
+    e.data.b.busy = true;
+    e.stopPropagation();  
+    if(e.target.nonce ==='false'){return;}
+    window.$(document).off('click','[tabIndex] , *:has(>[sel]) *',e.data.b.tabin);
+    if(e.target.tabIndex==0&&e.target.classList.contains('entry')){
+    if(window.$(e.data.b.a,e.data.a).length>0) {window.$('[tabIndex="1"]',e.data.a)[window.$('[tabIndex="1"]',e.data.a).length-1].removeAttribute('sel'); 
+    window.$(document).off('click','*:not(*:has(>[sel]) *)', e.data.b.tabout)}
+    if($(e.target).next().hasClass('pop')){
+           
+           window.pos = window.$(e.target,e.data.a).next().offset();
+           /*
+           if(!window.ppp){
+             window.ppp = $(e.target.parentElement)[0].getBoundingClientRect();
+            window.pos.gtop =Math.abs( ppp.bottom-window.pos.top);
+            window.pos.gleft =Math.abs( ppp.left-window.pos.left);
+        }*/
+           e.target.tabIndex =1;
+        window.$(e.target,e.data.a).next().offset({top: window.pos.top,left:window.pos.left});
+          $('*').on('scroll',e.data,e.data.b.popHelper);
+    }
+    
+    e.target.tabIndex =1;
+
+    window.$('[tabIndex="1"]',e.data.a)[window.$('[tabIndex="1"]',e.data.a).length-1].setAttribute('sel','');
+      if($(e.target).hasClass('alt')){  
+        window.e=e;
+              const g =  new window.Function(e.target.alt)();
+              window.e =null;
+
+               }
+    e.target.parentElement.classList.toggle(e.data.b.b); 
+    window.$(document).on('click','*:not(*:has(>[sel]) *)',e.data, e.data.b.tabout);}
     else if(e.target.tabIndex==1) {
-    e.target.parentElement.classList.toggle(customCh1.b);
-     $(document).off('click', customCh1.tabout);
-        $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].removeAttribute('sel');
+    e.target.parentElement.classList.toggle(e.data.b.b);
+     window.$(document).off('click','*:not(*:has(>[sel]) *)', e.data.b.tabout);
+        window.$('[tabIndex="1"]',e.data.a)[window.$('[tabIndex="1"]',e.data.a).length-1].removeAttribute('sel');
         e.target.tabIndex =0;
-        if($(customCh1.a,e.data).length>0) {   $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].setAttribute('sel','');
-              $(document).on('click',null,e.data, customCh1.tabout);           }
-    }else if(e.target.parentElement.classList.contains('access')){
-                   window.e=e;
-                 customCh1.Eval(e.target.parentElement.accessKey);
+        if(window.$(e.data.b.a,e.data.a).length>0) {   window.$('[tabIndex="1"]',e.data.a)[window.$('[tabIndex="1"]',e.data.a).length-1].setAttribute('sel','');
+              window.$(document).on('click','*:not(*:has(>[sel]) *)',e.data, e.data.b.tabout);           }
+    }else if(e.target.parentElement.classList.contains('access')&&"na"!==e.target.id){
+        window.e=e;
+              const g =  new window.Function(e.target.parentElement.accessKey)();
                  window.e = null;
+                 if(g){e.data.b.closeTab(e)}
      }
-    if($(customCh1.a,e.data).length>0){ $(document).on('click','[tabIndex] , *:has(>[sel]) *',e.data,customCh1.tabin);}
+    if(window.$(e.data.b.a,e.data.a).length>0){ window.$(document).on('click','[tabIndex] , *:has(>[sel]) *',e.data,e.data.b.tabin);}
+e.data.b.busy = false;
+
 }
 
 
 
  aquery.prototype.tabout = function(e){
+    if(e.data.b.busy){return}
     e.stopPropagation();
+    if(window.$(e.data.b.a).length===1&&!e.data.b.close){ return; }
     if(e.target.nonce ==='false'){return;}
- $(document).off('click', customCh1.tabout); 
-    if($(customCh1.a,e.data).length>0) { $(customCh1.a,e.data)[$(customCh1.a,e.data).length-1].classList.toggle(customCh1.b);
-    $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].removeAttribute('sel');
-    $('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].tabIndex = 0; }
-    if($(customCh1.a,e.data).length>0) {$('[tabIndex="1"]',e.data)[$('[tabIndex="1"]',e.data).length-1].setAttribute('sel','');
-         $(document).on('click',null,e.data, customCh1.tabout);           }
-         if($(customCh1.a,e.data).length==0){ $(customCh1.c,e.data).attr('nonce','false'); $(document).off('click','[tabIndex] , *:has(>[sel]) *',customCh1.tabin); $(document).off('click', customCh1.tabout); 
-        }   
+    window.$(document).off('click','[tabIndex] , *:has(>[sel]) *',e.data.b.tabin);
+    window.$(document).off('click','*:not(*:has(>[sel]) *)', e.data.b.tabout);
+    window.$(window.$('*:has(>[sel]) > [sel]'))[0].tabIndex =0;
+    window.$(window.$('*:has(>[sel]) > [sel]')).removeAttr('sel');
+    window.$(e.data.b.a,e.data.a)[window.$(e.data.b.a,e.data.a).length-1].classList.toggle(e.data.b.b);
+    if(window.$('[tabIndex="1"]',e.data.a).is('*')){
+        window.$('[tabIndex="1"]',e.data.a)[window.$('[tabIndex="1"]',e.data.a).length-1].setAttribute('sel','');
+        window.$(document).on('click','[tabIndex] , *:has(>[sel]) *',e.data,e.data.b.tabin);
+    window.$(document).on('click','*:not(*:has(>[sel]) *)', e.data,e.data.b.tabout);
+    return;
+    }
+        window.$(e.data.b.c,e.data.a).attr('nonce','false');
 }
 
-aquery.prototype.Eval = function(e) {
-    window.eval(e);
+aquery.prototype.popHelper = (e)=>{
+    if($(e.target).filter('*:has([sel]+.pop)').length==0)
+        {
+            return  $('*:has([sel]+.pop)').length>0||$('*').off('scroll',e.data.b.popHelper);
+        }
+        const prect = $(e.target)[0].getBoundingClientRect();
+        const rect = $('*:has(>[sel]+.pop)')[0].getBoundingClientRect();
+        $('.pop',e.target).offset({
+            top: Math.min(Math.max(rect.bottom,prect.top),prect.bottom),
+            left: Math.min(Math.max(rect.left,prect.left),prect.right)
+          });
+        
+        /*
+        $('.pop',e.target).offset({
+          top:  $('*:has(>[sel]+.pop)')[0].getBoundingClientRect().bottom,
+          left: $('*:has(>[sel]+.pop)')[0].getBoundingClientRect().left
+        });*/
+}
+
+aquery.prototype.modify = function(a, b, c, d, e){
+
+    this.a = a||this.a;
+    this.b = b||this.b;
+    this.c = c||this.c;
+    this.d = d||this.d
+    this.e = e||this.e;
 }
 
 aquery.prototype.customChangerFactory = function() {
-    return function(a, b, c, d, e) {
-        return new aquery(a, b, c, d, e);
+
+    return function(a, b, c, d, e,aa) {
+        c+='#'; aa=null;aa=a.replace('.','')
+        return new aquery(a, aa, b, c, d,e);
     };
-};
+   
+};                                                                                        
+
+
+
 
 
 

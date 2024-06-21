@@ -88,15 +88,30 @@ aquery.prototype.tabin = function(e){
     e.stopPropagation();  
 
         if($(this).hasClass('entry')){
+        if($(this).closest('.ctx>.pop').length!==0){
+        
+        }
           window.e = e;
           const close = new window.Function(this['attributes'].alt.value);
           window.e = null;
           if(close)
                if($(this).closest('.ctx').hasClass('tab')) e.data.b.closeAllTabs($(this).closest('.tab'));
-                    else e.data.b.closeTab($(this).closest('.tab'));
+                    else e.data.b.closeTab($(this).closest('.ctx'));
+        }else if($(this).parent().hasClass('access')&&'na'!==this.id){
+       window.e=e;
+       const close= new window.Function($(this).parent()[0]['attributes'].nonce.value);
+       window.e=null;
+       if(close)
+            e.data.b.closeTab($(this).closest('.ctx')); 
         }
+        
+        
+        
+        
 
 
+
+//////
     if(e.target.nonce ==='false'){return;}
     window.$(document).off('click','[tabIndex] , *:has(>[sel]) *',e.data.b.tabin);
     if(e.target.tabIndex==0&&e.target.classList.contains('entry')){
